@@ -1,0 +1,11 @@
+function [ imqDCT ] = myDCT_quantization( imDCT, qm, c )
+%myDCT_quantization outputs quantized DCT image
+
+imDCT = ones(8,8);
+for i = 1:8
+    for j = 1:8
+    end
+end
+
+end
+
