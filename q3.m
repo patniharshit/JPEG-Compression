@@ -15,4 +15,18 @@ Q=[16  11  10  16  24  40  51  61;
 F = create_mat_dct();
 
 im = imread('LAKE.TIF');
-[imx, imy] = size(im);
+[im_x, im_y] = size(im);
+
+out_im = zeros(im_x, im_y);
+c = 1;
+
+for i = 1 : 8 : im_x
+   for j = 1 : 8 : im_y
+       temp_im = im(i:i+7, j:j+7);
+       dct_im = myDCT(temp_im, F);
+       quant_im = myDCT_quantization(dct_im, Q, c);
+       out_im(i:i+7, j:j+7) = quant_im;
+   end
+end
+
+imshow(out_im);
