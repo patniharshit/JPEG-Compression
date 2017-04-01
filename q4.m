@@ -13,37 +13,38 @@ Q=[16  11  10  16  24  40  51  61;
     72  92  95  98  112 100 103 99];
 
 c = 10;
-
-%8-point 2d-DCT 
 F = create_mat_dct();
 
 im = imread('LAKE.TIF');
-
 [im_x, im_y] = size(im);
+
 q_im = zeros(im_x, im_y);
 
-for i = 1 : 8 : im_x
-   for j = 1 : 8 : im_y
+for j = 1 : 8 : im_x
+   for i = 1 : 8 : im_y
        temp_im = im(i:i+7, j:j+7);
-       temp_im = temp_im - 128;
+       %temp_im = temp_im - 128;
        dct_im = myDCT(temp_im, F);
        quant_im = myDCT_quantization(dct_im, Q, c);
        q_im(i:i+7, j:j+7) = quant_im;
    end
 end
 
-%imshow(q_im);
+imshow(q_im);
 
 % Dequantize
 dq_im = zeros(im_x, im_y);
 
-for i = 1 : 8 : im_x
-   for j = 1 : 8 : im_y
-       temp_im = q_img(i:i+7, j:j+7);
-       dequant_im = myDCT_quantization(temp_im, Q, c);
+for j = 1 : 8 : im_x
+   for i = 1 : 8 : im_y
+       temp_im = q_im(i:i+7, j:j+7);
+       dequant_im = myDCT_dequantization(temp_im, Q, c);
        idct_im = myIDCT(dequant_im, F);
-       idct_im = idct_im + 128;
-       
-       dq_im(i:i+7, j:j+7) = quant_im;
+       %idct_im = idct_im + 128;
+       dq_im(i:i+7, j:j+7) = idct_im;
    end
 end
+
+% imshow(dq_im)
+figure, imshow(im, [0 255]);
+figure, imshow(dq_im, [0 255]);
