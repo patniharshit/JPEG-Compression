@@ -43,6 +43,7 @@ for j = 1 : 8 : im_x
    end
 end
 
+% imshow(dq_im)
 figure
 subplot(1,2,1), imshow(uint8(im)); title('Original Image');
-subplot(1,2,2), imshow(uint8(dq_im)); title('Compressed Image');
+subplot(1,2,2), imshow(uint8(dq_im)); title('Compression wi');

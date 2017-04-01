@@ -18,16 +18,16 @@ im = imread('LAKE.TIF');
 
 [im_x, im_y] = size(im);
 out_im = zeros(im_x, im_y);
-c = 20;
+c = 2;
 
 for i = 1 : 8 : im_x
    for j = 1 : 8 : im_y
        temp_im = im(i:i+7, j:j+7);
-       % temp_im = temp_im - 128;
+       temp_im = temp_im - 128;
        dct_im = myDCT(temp_im, F);
        quant_im = myDCT_quantization(dct_im, Q, c);
        out_im(i:i+7, j:j+7) = quant_im;
    end
 end
 
-imshow((out_im));
+imshow(out_im);
