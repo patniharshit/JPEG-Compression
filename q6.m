@@ -13,36 +13,65 @@ pics = {'autumn.tif',
     'saturn.png',
     'tape.png',
     'office_4.jpg'
-}
-
-for i = 1: size(pics)
-    im = imread(pics{i});
+};
+    
+for idx = 1: size(pics)
+    im = imread(pics{idx});
     var = size(size(im));
     if(var(2) == 3)
         im = rgb2gray(im);
     end
     
-    im = imresize(im, [256 256]); 
+    im = imresize(im, [256 256]);
     
-    temp1 = im;
-    temp2 = im;
+    figure; 
+    subplot(1,3,1); imshow(im);
+    
+    % Apply DCT
     temp = im;
-    
-    temp(:,:,1) = dct2(temp1(:,:,1));
-    
-     for i=1:256
-        for j=1:256
-            if((i+j)>125)
-               temp(i,j,1)=0;
-               temp(i,j,2)=0;
-               temp(i,j,3)=0;
+
+    for j = 1 : 8 : 256
+       for i = 1 : 8 : 256
+           temp_im = im(i:i+7, j:j+7);
+           dct_im = idct2(temp_im);
+           
+           for i=1:8
+            for j=1:8
+                if((i+j)>6)
+                    dct_im(i,j)=0;
+                end
+              end
             end
-        end
-     end
-     
-    temp1(:,:,1) = idct2(temp(:,:,1));
+   
+           quant_im = idct(dct_im);
+           temp(i:i+7, j:j+7) = quant_im;
+       end
+    end
     
-    figure; subplot(1,2,1); imshow(temp1);
-    disp(RMSE(im, temp1));
-    %figure; imshow(im); title(pics{i});
+    subplot(1,3,2); imshow(temp); title('DCT');
+    fprintf('RMSE of DCT of image: %i = %f\n', idx, RMSE(im, temp));
+    
+    % Apply DFT
+    temp = im;
+
+    for j = 1 : 8 : 256
+       for i = 1 : 8 : 256
+           temp_im = im(i:i+7, j:j+7);
+           dct_im = fft2(temp_im);
+           
+           for i=1:8
+            for j=1:8
+                if((i+j)>6)
+                    dct_im(i,j)=0;
+                end
+              end
+            end
+   
+           quant_im = ifft(dct_im);
+           temp(i:i+7, j:j+7) = quant_im;
+       end
+    end
+    
+    subplot(1,3,3); imshow(uint8(real(temp))); title('DFT');
+    fprintf('RMSE of DFT of image: %i = %f\n\n', idx, RMSE(im, temp));
 end
