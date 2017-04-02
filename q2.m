@@ -2,6 +2,13 @@
 % Take some patches out of image and apply DCT, Quantization,
 % Dequantization, IDCT on them
 
+% COMMENTS
+% In all the quantized DCTs most of the entries towards the bottom right
+% are 0's and has a lot less entries that need to be stored compared to the
+% non-qunatized one.
+% On reconstructing the compressed image based on value of c we get our
+% patch similar to original patch
+
 %Quantization matrix for luminance
 Q=[16  11  10  16  24  40  51  61;
     12  12  14  19  26  58  60  55;
