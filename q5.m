@@ -1,7 +1,6 @@
 % q5
 % Plot entropy versus RMSE by varying the value of c
 
-
 % Quantization matrix for luminance
 Q=[16  11  10  16  24  40  51  61;
     12  12  14  19  26  58  60  55;
@@ -26,7 +25,6 @@ for c = 1 : 100
     for j = 1 : 8 : im_x
        for i = 1 : 8 : im_y
            temp_im = im(i:i+7, j:j+7);
-           % temp_im = temp_im - 128;
            dct_im = myDCT(temp_im, F);
            quant_im = myDCT_quantization(dct_im, Q, c);
            q_im(i:i+7, j:j+7) = quant_im;
@@ -41,13 +39,12 @@ for c = 1 : 100
            temp_im = q_im(i:i+7, j:j+7);
            dequant_im = myDCT_dequantization(temp_im, Q, c);
            idct_im = myIDCT(dequant_im, F);
-           % idct_im = idct_im + 128;
            dq_im(i:i+7, j:j+7) = idct_im;
        end
     end
     
     entropy(c) = My_entropy(uint8(dq_im));
-    rmse(c) = RMSE(im, uint8(dq_im));
+    rmse(c) = RMSE(im, dq_im);
 end
 
 entropy = entropy(entropy~=0);
