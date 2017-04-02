@@ -2,18 +2,24 @@
 % An experiment to test the hypothesis that using DCT gives better com-
 % pression than using DFT
 
+% COMMENTS
+% This experiment proves our hypothesis that using DCT gives better com-
+% pression than using DFT (when using subdivision of 8 × 8 images). Use a set of
+% 11 different images for your experiment. And we find out that for
+% majority of them RMSE error in DCT was less than in FFT.
+
 pics = {'autumn.tif',
-    'board.tif',};
-%     'cameraman.tif',
-%     'peppers.png',
-%     'coins.png',         
-%     'fabric.png',
-%     'liftingbody.png',
-%     'pears.png',
-%     'saturn.png',
-%     'tape.png',
-%     'office_4.jpg'
-% };
+    'board.tif',
+     'cameraman.tif',
+     'peppers.png',
+     'coins.png',         
+     'fabric.png',
+     'liftingbody.png',
+     'pears.png',
+     'saturn.png',
+     'tape.png',
+     'office_4.jpg'
+};
 
 len = 512;
 
@@ -56,7 +62,6 @@ for idx = 1: size(pics)
     a = temp;
     
      % Apply DFT
-
      for j = 1 : 8 : len
         for i = 1 : 8 : len
             temp_im = im(i:i+7, j:j+7);

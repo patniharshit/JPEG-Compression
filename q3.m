@@ -1,6 +1,14 @@
 % q2
 % Apply DCT transform and quanitzation to LAKE.tif
 
+% COMMENTS:
+% 1) On increasing value of c image quality decreases but compression
+% increases
+% 2) In places where the colours of the image are similar, there are a
+% lot of zeros, so we observe small white dots.
+% 3) Just the DCT without any quantization we can clearly see a pattern of
+% our image formed by white dots on black screen
+
 % Classical quantization matrix for luminance matrix
 Q=[16  11  10  16  24  40  51  61;
     12  12  14  19  26  58  60  55;
