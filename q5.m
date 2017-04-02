@@ -19,7 +19,7 @@ im = imread('LAKE.TIF');
 rmse = zeros(1,105);
 entropy = zeros(1,105);
 
-for c = 1 : 100
+for c = 1 : 255
     q_im = zeros(im_x, im_y);
 
     for j = 1 : 8 : im_x
@@ -46,8 +46,5 @@ for c = 1 : 100
     entropy(c) = My_entropy(uint8(dq_im));
     rmse(c) = RMSE(im, dq_im);
 end
-
-entropy = entropy(entropy~=0);
-rmse = rmse(rmse~=0);
 
 plot(rmse, entropy);
