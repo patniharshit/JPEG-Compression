@@ -28,9 +28,10 @@ idc1 = myIDCT(dequant1, F);
 figure;
 subplot(1,5,1); imshow(uint8(clip1)); title('Image');
 subplot(1,5,2); imshow(uint8(dc1)); title('DCT');
-subplot(1,5,3); imshow(uint8(quant1)); title('Qunatized');
-subplot(1,5,4); imshow(uint8(dequant1)); title('Dequantized');
+subplot(1,5,3); imshow(uint8(quant1)); title('Qunatize');
+subplot(1,5,4); imshow(uint8(dequant1)); title('Dequantize');
 subplot(1,5,5); imshow(uint8(idc1)); title('IDCT');
+im(45:52, 420:427) = idc1;
 
 clip2 = im(298:305, 427:434);
 dc2 = myDCT(clip2, F);
@@ -40,8 +41,8 @@ idc2 = myIDCT(dequant2, F);
 figure;
 subplot(1,5,1); imshow(uint8(clip2)); title('Image');
 subplot(1,5,2); imshow(uint8(dc2)); title('DCT');
-subplot(1,5,3); imshow(uint8(quant2)); title('Qunatized');
-subplot(1,5,4); imshow(uint8(dequant2)); title('Dequantized');
+subplot(1,5,3); imshow(uint8(quant2)); title('Qunatize');
+subplot(1,5,4); imshow(uint8(dequant2)); title('Dequantize');
 subplot(1,5,5); imshow(uint8(idc2)); title('IDCT');
 im(298:305, 427:434) = idc2;
 
@@ -53,7 +54,9 @@ idc3 = myIDCT(dequant3, F);
 figure;
 subplot(1,5,1); imshow(uint8(clip3)); title('Image');
 subplot(1,5,2); imshow(uint8(dc3)); title('DCT');
-subplot(1,5,3); imshow(uint8(quant3)); title('Qunatized');
-subplot(1,5,4); imshow(uint8(dequant3)); title('Dequantized');
+subplot(1,5,3); imshow(uint8(quant3)); title('Qunatize');
+subplot(1,5,4); imshow(uint8(dequant3)); title('Dequantize');
 subplot(1,5,5); imshow(uint8(idc3)); title('IDCT');
 im(230:237, 30:37) = idc3;
+
+figure; imshow(uint8(im));
